@@ -1,7 +1,11 @@
-import React, { useRef } from 'react';
-import { signUp, signIn } from '../../service/auth/auth';
+import React, {useEffect, useRef} from 'react';
+import { signUp, signIn, checkAuth } from '../../service/auth/auth';
 
 const Auth = () => {
+
+  useEffect(() => {
+    checkAuth();
+  },[]);
 
   const signUpSubmitted = event => {
     event.preventDefault();
