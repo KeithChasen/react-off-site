@@ -3,11 +3,14 @@ const initialState = {
 };
 
 const reducer = ( state = initialState, action ) => {
-
-  console.log(state, 'State')
-  console.log(action.payload, 'Action')
-
-  return action.type === "USER_LOGGED" ? ({ ...state, user: action.payload}) : state;
-}
+  switch (action.type) {
+    case "USER_LOGGED":
+      return { ...state, user: action.payload };
+    case "USER_LOGGED_OUT":
+      return { ...state, user: null };
+    default:
+      return state;
+  }
+};
 
 export default reducer;

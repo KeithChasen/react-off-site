@@ -4,3 +4,11 @@ export const userLoaded = (user) => {
     payload: user
   };
 };
+
+export const userLogOut = () => {
+  return {
+    type: "USER_LOGGED_OUT",
+    payload: null
+  };
+};
+

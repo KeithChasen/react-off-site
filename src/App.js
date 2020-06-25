@@ -17,8 +17,8 @@ const App = () =>  {
   checkAuth(user => {
     if (user) {
       dispatch(userLoaded(user));
-      setLoader(false);
     }
+    setLoader(false);
   });
 
   const content = loader ?
