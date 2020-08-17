@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { userLoaded } from "./store/actions";
 import Loader from "./components/Loader/Loader";
 import List from "./components/Books/List/List";
+import Create from "./components/Books/Create/Create";
 
 const App = () =>  {
 
@@ -22,6 +23,25 @@ const App = () =>  {
     setLoader(false);
   });
 
+  const booksRoutes =
+    <Switch>
+      <Route path="/books/list">
+        <List/>
+      </Route>
+      <Route path="/book/create">
+        <Create/>
+      </Route>
+
+      <Route path="/book/$id">
+      </Route>
+
+      <Route path="/book/$id/characters">
+      </Route>
+
+      <Route path="/book/$id/characters/$id">
+      </Route>
+    </Switch>;
+
   const content = loader ?
     <Loader/> :
     <BrowserRouter>
@@ -30,9 +50,9 @@ const App = () =>  {
         <Route exact path="/">
           <Main/>
         </Route>
-        <Route exact path="/list">
-          <List/>
-        </Route>
+
+        { booksRoutes }
+
         <Route path="/login">
           <Login/>
         </Route>

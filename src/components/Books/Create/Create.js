@@ -7,17 +7,17 @@ const List = () => {
 
   const component =  (
     <div>
-      <h1>List</h1>
-      <ul>
-        <li>Book 1</li>
-      </ul>
-      <NavLink to='/book/create'>Create Book</NavLink>
+      <h1>Create Book</h1>
+      <form>
+        <input type="text" placeholder='Title'/>
+        <button>Create</button>
+      </form>
     </div>
   );
 
   const content = user ?
 
-     component :
+    component :
 
     <Redirect to="/login"/>;
 
