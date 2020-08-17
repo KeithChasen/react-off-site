@@ -51,14 +51,19 @@ const Header = () => {
   };
 
   const headerLinks = isAuth ?
+
     <HeaderList>
       <HeaderListItem>
         <NavLink exact to='/'>Home</NavLink>
       </HeaderListItem>
       <HeaderListItem>
+        <NavLink exact to='/list'>List</NavLink>
+      </HeaderListItem>
+      <HeaderListItem>
         <Link to='#' onClick={ logOut }>Logout</Link>
       </HeaderListItem>
     </HeaderList> :
+
     <HeaderList>
       <HeaderListItem>
         <NavLink to='/register'>Register</NavLink>

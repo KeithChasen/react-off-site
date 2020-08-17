@@ -8,6 +8,7 @@ import { checkAuth } from "./service/auth/auth";
 import { useDispatch } from "react-redux";
 import { userLoaded } from "./store/actions";
 import Loader from "./components/Loader/Loader";
+import List from "./components/Books/List/List";
 
 const App = () =>  {
 
@@ -28,6 +29,9 @@ const App = () =>  {
       <Switch>
         <Route exact path="/">
           <Main/>
+        </Route>
+        <Route exact path="/list">
+          <List/>
         </Route>
         <Route path="/login">
           <Login/>
