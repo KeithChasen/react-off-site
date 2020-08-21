@@ -51,13 +51,11 @@ const App = () =>  {
     <Loader/> :
     <BrowserRouter>
       <Header/>
+      { booksRoutes }
       <Switch>
         <Route exact path="/">
           { checkAndRedirect(<Main/>) }
         </Route>
-
-        { booksRoutes }
-
         <Route path="/login">
           <Login/>
         </Route>
