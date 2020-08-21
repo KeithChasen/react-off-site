@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 import Main from "./components/Main/Main";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
@@ -10,9 +10,14 @@ import { userLoaded } from "./store/actions";
 import Loader from "./components/Loader/Loader";
 import List from "./components/Books/List/List";
 import Create from "./components/Books/Create/Create";
+import store from "./store/store";
+
+const checkAndRedirect = component => {
+  const user = store.getState().user;
+  return user ? component : <Redirect to="/login"/>;
+};
 
 const App = () =>  {
-
   const dispatch = useDispatch();
   const [ loader, setLoader ] = useState(true);
 
@@ -26,10 +31,10 @@ const App = () =>  {
   const booksRoutes =
     <Switch>
       <Route path="/books/list">
-        <List/>
+        { checkAndRedirect(<List/>) }
       </Route>
       <Route path="/book/create">
-        <Create/>
+        { checkAndRedirect(<Create/>) }
       </Route>
 
       <Route path="/book/$id">
@@ -48,7 +53,7 @@ const App = () =>  {
       <Header/>
       <Switch>
         <Route exact path="/">
-          <Main/>
+          { checkAndRedirect(<Main/>) }
         </Route>
 
         { booksRoutes }
