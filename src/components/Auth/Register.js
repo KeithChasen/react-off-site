@@ -1,15 +1,12 @@
 import React, { useRef } from 'react';
 import { signUp } from '../../service/auth/auth';
-import { Redirect, useHistory } from "react-router-dom";
-import store from "../../store/store";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLoaded } from "../../store/actions";
 
 const Register = () => {
   const email = useRef(null);
   const password = useRef(null);
-
-  const user = store.getState().user;
   const dispatch = useDispatch();
   let history = useHistory();
 
@@ -27,9 +24,7 @@ const Register = () => {
       .catch(error => console.error('Sign Up Error: ', error));
   };
 
-  const content = user ?
-    <Redirect to="/"/> :
-    (
+  return (
       <div>
         <h1>
           Register
@@ -41,9 +36,7 @@ const Register = () => {
           <input type="submit" value='Sign Up'/>
         </form>
       </div>
-    );
-
-  return  ( content );
+  );
 };
 
 export default Register;

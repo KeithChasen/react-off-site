@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { NavLink, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { checkAuth, signOut } from '../../service/auth/auth';
-import { userLoaded, userLogOut } from "../../store/actions";
+import { signOut } from '../../service/auth/auth';
+import { userLogOut } from "../../store/actions";
 import { useDispatch } from "react-redux";
+import store from "../../store/store";
 
 const HeaderList = styled.ul`
   list-style-type: none;
@@ -28,17 +29,16 @@ const HeaderListItem = styled.li`
 const Header = () => {
   const dispatch = useDispatch();
   let history = useHistory();
-  const [ loader, setLoader ] = useState(true);
   const [ isAuth, setIsAuth ] = useState(false);
 
-  checkAuth(user => {
+  useEffect(() => {
+    const user = store.getState().user;
+
     if (user) {
-      dispatch(userLoaded(user));
       setIsAuth(true);
     } else {
       setIsAuth(false);
     }
-    setLoader(false);
   });
 
   const logOut = () => {
@@ -73,11 +73,9 @@ const Header = () => {
       </HeaderListItem>
     </HeaderList>;
 
-  const content = loader ? loader : headerLinks;
-
   return (
     <div>
-      { content }
+      { headerLinks }
     </div>
   );
 };

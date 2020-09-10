@@ -1,9 +1,4 @@
-import * as firebase from "firebase";
-import { firebaseConfig } from '../../config';
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
+import { auth } from '../init'
 
 export const signUp = (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);

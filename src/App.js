@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 import Main from "./components/Main/Main";
 import Login from "./components/Auth/Login";
@@ -12,29 +12,37 @@ import List from "./components/Books/List/List";
 import Create from "./components/Books/Create/Create";
 import store from "./store/store";
 
-const checkAndRedirect = component => {
-  const user = store.getState().user;
-  return user ? component : <Redirect to="/login"/>;
-};
-
 const App = () =>  {
   const dispatch = useDispatch();
   const [ loader, setLoader ] = useState(true);
 
-  checkAuth(user => {
-    if (user) {
-      dispatch(userLoaded(user));
-    }
-    setLoader(false);
+  useEffect(() => {
+    checkAuth(user => {
+      if (user) {
+        dispatch(userLoaded(user));
+      } else {
+        dispatch(userLoaded(null));
+      }
+      setLoader(false);
+    });
   });
+
+  const checkAndRedirect = (component, shouldBeAuth = true) => {
+    const user = store.getState().user;
+
+    if (shouldBeAuth)
+      return user ? component : <Redirect to="/login"/>;
+
+    return !user ? component : <Redirect to="/"/>;
+  };
 
   const booksRoutes =
     <Switch>
       <Route path="/books/list">
-        { checkAndRedirect(<List/>) }
+        { () => checkAndRedirect(<List/>) }
       </Route>
-      <Route path="/book/create">
-        { checkAndRedirect(<Create/>) }
+      <Route path="/books/create">
+        { () => checkAndRedirect(<Create/>) }
       </Route>
 
       <Route path="/book/$id">
@@ -54,13 +62,14 @@ const App = () =>  {
       { booksRoutes }
       <Switch>
         <Route exact path="/">
-          { checkAndRedirect(<Main/>) }
+          { () => checkAndRedirect(<Main/>) }
         </Route>
+
         <Route path="/login">
-          <Login/>
+          { () => checkAndRedirect(<Login/>, false) }
         </Route>
         <Route path="/register">
-          <Register/>
+            { () => checkAndRedirect(<Register/>, false) }
         </Route>
       </Switch>
     </BrowserRouter>;
