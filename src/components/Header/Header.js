@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { NavLink, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { signOut } from '../../service/auth/auth';
-import { userLogOut } from "../../store/actions";
 import { useDispatch } from "react-redux";
-import store from "../../store/store";
+import {userLoaded} from "../../store/actions";
 
 const HeaderList = styled.ul`
   list-style-type: none;
@@ -26,25 +25,14 @@ const HeaderListItem = styled.li`
   }
 `;
 
-const Header = () => {
+const Header = ({ isAuth }) => {
   const dispatch = useDispatch();
   let history = useHistory();
-  const [ isAuth, setIsAuth ] = useState(false);
-
-  useEffect(() => {
-    const user = store.getState().user;
-
-    if (user) {
-      setIsAuth(true);
-    } else {
-      setIsAuth(false);
-    }
-  },[]);
 
   const logOut = () => {
     signOut()
       .then(() => {
-        dispatch(userLogOut());
+        dispatch(userLoaded(null));
         history.push('/login');
       })
       .catch(error => console.log('Sign out Error: ', error))

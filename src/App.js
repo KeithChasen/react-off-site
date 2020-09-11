@@ -11,13 +11,16 @@ import { authRoutes } from "./routes/auth";
 const App = () =>  {
   const dispatch = useDispatch();
   const [ loader, setLoader ] = useState(true);
+  const [ isAuth, setIsAuth ] = useState(false);
 
   useEffect(() => {
     checkAuth(user => {
       if (user) {
         dispatch(userLoaded(user));
+        setIsAuth(true);
       } else {
         dispatch(userLoaded(null));
+        setIsAuth(false);
       }
       setLoader(false);
     });
@@ -26,7 +29,7 @@ const App = () =>  {
   const content = loader ?
     <Loader/> :
     <BrowserRouter>
-      <Header/>
+      <Header isAuth={isAuth} />
       { booksRoutes }
       { authRoutes }
     </BrowserRouter>;
