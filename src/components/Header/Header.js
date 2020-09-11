@@ -39,7 +39,7 @@ const Header = () => {
     } else {
       setIsAuth(false);
     }
-  });
+  },[]);
 
   const logOut = () => {
     signOut()

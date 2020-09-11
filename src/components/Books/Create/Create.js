@@ -1,12 +1,10 @@
 import React, { useRef } from 'react';
 import { useHistory } from "react-router-dom";
-import { useDispatch } from 'react-redux'
-import { createBook, createBookSuccess } from '../../../store/actions/books'
+import { createBook } from '../../../store/actions/books'
 
 
 const Create = () => {
   const title = useRef(null);
-  const dispatch = useDispatch();
   let history = useHistory();
 
   const createBookHandler = (event) => {
@@ -17,17 +15,16 @@ const Create = () => {
 
     createBook({ title: title.current.value })
       .then(response => {
-
-        // console.log(response.docs, 'res create book')
-
-        dispatch(createBookSuccess())
-        history.push('/books/list');
+        if (response.id) {
+          history.push('/books/list');
+        } else {
+          //todo: show error
+          console.log('show error book wasn\'t created')
+        }
       })
       .catch(error => {
-
+        //todo: log error
         console.log(error, 'error create book')
-
-        dispatch()
       })
   };
 

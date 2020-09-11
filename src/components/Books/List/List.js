@@ -20,14 +20,15 @@ const List = () => {
       setLoader(false);
     });
 
+    //todo: check if there books in the storage first
     fetchBooks()
       .then(response => {
-      setBooks(response);
+        setBooks(response);
     })
-  });
+  }, []);
 
   const bookList = books ? books.map(book =>
-    ( <li id={book.id}>{book.data().title}</li> )
+    ( <li id={book.id} key={book.id}>{book.data().title}</li> )
   ) : loader;
 
   const fetchBooks = () => getBooks()
@@ -41,7 +42,7 @@ const List = () => {
       <ul>
         { bookList }
       </ul>
-      <NavLink to='/book/create'>Create Book</NavLink>
+      <NavLink to='/books/create'>Create Book</NavLink>
     </div>
   );
 };
