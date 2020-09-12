@@ -48,6 +48,9 @@ const Header = ({ isAuth }) => {
         <NavLink exact to='/books/list'>List</NavLink>
       </HeaderListItem>
       <HeaderListItem>
+        <NavLink exact to='/account'>Account</NavLink>
+      </HeaderListItem>
+      <HeaderListItem>
         <Link to='#' onClick={ logOut }>Logout</Link>
       </HeaderListItem>
     </HeaderList> :

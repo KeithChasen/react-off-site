@@ -7,6 +7,7 @@ import { userLoaded } from "./store/actions";
 import Loader from "./components/Loader/Loader";
 import { booksRoutes } from "./routes/books";
 import { authRoutes } from "./routes/auth";
+import { accountRoutes } from "./routes/account";
 
 const App = () =>  {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const App = () =>  {
     <BrowserRouter>
       <Header isAuth={isAuth} />
       { booksRoutes }
+      { accountRoutes }
       { authRoutes }
     </BrowserRouter>;
 
