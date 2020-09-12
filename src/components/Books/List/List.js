@@ -16,7 +16,13 @@ const List = () => {
   }, []);
 
   const bookList = books ? books.map(book =>
-    ( <li id={book.id} key={book.id}>{book.data().title}</li> )
+    ( <li key={book.id}>
+        <NavLink
+          to={`/books/${book.id}`}
+        >
+        {book.data().title}
+      </NavLink>
+    </li> )
   ) : loader;
 
   const fetchBooks = () => getBooks()
