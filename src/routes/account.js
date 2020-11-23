@@ -8,4 +8,8 @@ export const accountRoutes =
     <Route path="/account">
       { () => checkAndRedirect(<Account/>) }
     </Route>
+
+    {/*<Route path="/account">*/}
+    {/*  { () => checkAndRedirect(<Account/>) }*/}
+    {/*</Route>*/}
   </Switch>;
