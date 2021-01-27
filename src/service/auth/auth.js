@@ -1,5 +1,6 @@
 import { auth } from '../init'
 
+//todo: expand that with collections for storing firstName and lastName
 export const signUp = (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
 
