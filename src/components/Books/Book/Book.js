@@ -10,6 +10,9 @@ const Book = (props) => {
     //todo: check if there book in the storage first
     fetchBook(props.id)
       .then(response => {
+
+        console.log(response, 'book')
+
         setBook(response);
         setLoader(false);
       })
@@ -24,7 +27,9 @@ const Book = (props) => {
     <div>
       <h1>Book</h1>
       <h2>{book.title}</h2>
-      <NavLink to='/books/character/create'>Create Character</NavLink>
+      <NavLink to={`/books/${props.id}/characters/create`}>
+        Create Character
+      </NavLink>
     </div>
   );
 };
