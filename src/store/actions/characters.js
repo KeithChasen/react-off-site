@@ -20,7 +20,5 @@ export const createCharacter = data => {
 export const updateCharacter = (data, id) => {
   return storage.collection('characters')
     .doc(id)
-    .set({
-      name: data.name
-    })
+    .set(data)
 };
