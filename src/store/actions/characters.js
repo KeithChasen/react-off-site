@@ -2,9 +2,8 @@ import { storage }  from '../../service/init'
 
 export const getCharacters = bookId => {
   return storage
-    .collection('books')
-    .doc(bookId)
     .collection('characters')
+    .where('bookid', '==', bookId)
     .get();
 };
 
