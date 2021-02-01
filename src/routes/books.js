@@ -24,11 +24,12 @@ export const booksRoutes =
     >
     </Route>
 
-    <Route path="/books/:id/characters">
-    </Route>
-
-    <Route path="/books/:id/characters/:id">
-      { () => checkAndRedirect(<Character/>) }
+    <Route
+      path="/characters/:id"
+      render={
+        props => checkAndRedirect(<Character id={props.match.params.id}/>)
+      }
+    >
     </Route>
 
     <Route

@@ -39,7 +39,11 @@ const Book = (props) => {
 
   const charactersList =
     characters ?
-    characters.map(character => <li key={character.id}>{character.name}</li>) :
+    characters.map(character =>
+      <NavLink to={`/characters/${character.id}`} key={character.id}>
+        {character.name}
+      </NavLink>
+    ) :
     null;
 
   return  loader ? loader :(

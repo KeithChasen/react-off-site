@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { getCharacter } from '../../store/actions/characters'
+import { getCharacter, updateCharacter } from '../../store/actions/characters'
 
 const Character = (props) => {
   const [ loader, setLoader ] = useState(true);
   const [ character, setCharacter ] = useState(null);
   const [ editMode, setEditMode ] = useState(false);
+  const [ name, setName ] = useState('');
 
   useEffect(() => {
     //todo: check if there book in the storage first
     fetchCharacter(props.id)
       .then(response => {
-        console.log(response, 'character')
-
         setCharacter(response);
+        setName(response.name);
         setLoader(false);
       })
   }, []);
@@ -32,19 +32,43 @@ const Character = (props) => {
     // {id, title, info}
   };
 
-  const characterPage = (
+  const characterPage = character ? (
     <div>
       <h1>Character</h1>
-      <h2>{character.name}</h2>
+      <h2>{name}</h2>
       <button onClick={() => setEditMode(true)}>Edit</button>
     </div>
-  );
+  ) : null;
+
+  const update = event => {
+    event.preventDefault();
+
+    if (!name.length || character.name === name)
+      return;
+
+    updateCharacter({ name }, props.id)
+      .then(() => {
+        setEditMode(false)
+      })
+      .catch(error => {
+        console.log(`Error: ${error}`)
+      });
+
+    setEditMode(false);
+  };
 
   const editCharacter = (
     <div>
       <h1>Edit Character</h1>
-      <h2>{character.name}</h2>
-      <button onClick={() => setEditMode(false)}>Save</button>
+      <form onSubmit={update}>
+        <input
+          type="text"
+          placeholder="Character's name"
+          value={ name }
+          onChange={e => setName(e.target.value)}
+        />
+        <button>Update</button>
+      </form>
     </div>
   );
 

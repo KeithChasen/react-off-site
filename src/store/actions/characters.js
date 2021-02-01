@@ -16,3 +16,11 @@ export const createCharacter = data => {
     ...data
   });
 };
+
+export const updateCharacter = (data, id) => {
+  return storage.collection('characters')
+    .doc(id)
+    .set({
+      name: data.name
+    })
+};
